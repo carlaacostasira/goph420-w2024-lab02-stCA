@@ -36,14 +36,14 @@ def root_newton_raphson(x0, f, dfdx):
 
     x = x0
     error = np.array([])
-    while True:
+    for i in range(100):
         x_new = x - f(x)/dfdx(x)
-        error = np.append(error, abs((x_new - x)/x_new))
-        if abs((x_new - x)/x_new) < 1e-6:
+        error = np.append(error, abs(x_new - x)/x_new)
+        if abs(x_new - x)/x_new < 1e-6:
             break
         x = x_new
-    return x_new, len(error), error
     
+    return x_new, len(error), error
 
 def root_secant_modified(x0, dx, f): 
 # """
@@ -67,8 +67,8 @@ def root_secant_modified(x0, dx, f):
 #     Raises
 #     ------
 #     ValueError
-#         If x0 is not a float
-#         If dx is not an int
+#         If x0 is not a float 
+#         If dx is not an int 
 #         If f is not an array_like
 #     """
 
@@ -79,11 +79,11 @@ def root_secant_modified(x0, dx, f):
     
     x = x0
     error = np.array([])
-    while True:
+    for i in range(100):
         x_new = x - f(x)*dx/(f(x + dx) - f(x))
         error = np.append(error, abs((x_new - x)/x_new))
         if abs((x_new - x)/x_new) < 1e-6:
             break
         x = x_new
     return x_new, len(error), error
-
+    
