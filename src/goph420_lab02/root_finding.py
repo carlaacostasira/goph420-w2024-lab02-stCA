@@ -30,7 +30,7 @@ def root_newton_raphson(x0, f, dfdx):
     if not isinstance(x0, float):
         raise ValueError(f"x0 must be a float, not {type(x0)}")
     if not callable(f):
-        raise ValueError("f must be callable function")
+       raise ValueError("f must be callable function")
     if not callable(dfdx):
         raise ValueError("dfdx must be callable functions")
 
@@ -74,8 +74,8 @@ def root_secant_modified(x0, dx, f):
 
     if not isinstance(x0, float):
         raise ValueError(f"x0 must be a float, not {type(x0)}")
-    if not callable(f):
-        raise ValueError("f must be callable function")
+#    if not callable(f):
+#        raise ValueError("f must be callable function")
     
     x = x0
     error = np.array([])
