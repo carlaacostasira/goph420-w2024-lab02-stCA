@@ -76,7 +76,7 @@ for i, f in enumerate(frequencies):
             
             zplt = np.linspace(za_mode0 + 1e-6, za_mode - 1e-6, 100) # Create a range of values around the asymptotic value
             plt.plot(zplt, intersection(zplt), color='b')
-            plt.axvline(x=za_mode, color='r', linestyle='--') # Plot the asymptotic values
+            plt.axvline(x=za_mode, color='r', linestyle='--', label = 'Asyntote (s)' if mode == 0 else "_nolabel_") # Plot the asymptotic values
             
             za_mode0 = za_mode
                                     
@@ -94,8 +94,9 @@ for i, f in enumerate(frequencies):
         root = root_secant_modified(z0, 1e-7, intersection)[0]
         roots_for_frequency.append(root) # Store the root for the current mode
          
-        plt.plot (z0, 0, 'xg')
-        plt.plot (root, intersection(root),'ro') 
+        
+        plt.plot (z0, 0, 'xg', label= 'Initial guess' if mode == 0 else "_nolabel_")
+        plt.plot (root, intersection(root),'ro', label= 'Root (s)' if mode == 0 else "_nolabel_") 
                                  
         #print(f'Initial guess (z0) for mode {mode} and frequency {f} Hz is {z0}')
         #print(f'Root for mode {mode} and frequency {f} Hz is {root}')
@@ -108,6 +109,10 @@ for i, f in enumerate(frequencies):
     roots_storage.append(roots_for_frequency) # Store the roots for the current frequency5
     plt.ylim (-10, 10)
     #plt.xlim(0, zmax)
+    plt.title('Dispersion Equation for Love Waves')
+    plt.xlabel('\u03B6')
+    plt.ylabel('g(\u03B6)')
+    plt.legend()  
     plt.savefig (f'figures/roots_frequencies_{f}.png')
     
     
