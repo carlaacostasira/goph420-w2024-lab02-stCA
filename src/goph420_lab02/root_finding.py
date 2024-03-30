@@ -49,7 +49,7 @@ def root_secant_modified(x0, dx, f):
 # """
 # Compute root finding using modified secant method.
 
-#     Inputs
+#     Inputs 
 #     ------
 #     x0 : float
 #         Initial guess for the root.

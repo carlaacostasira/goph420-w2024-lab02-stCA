@@ -10,7 +10,7 @@ beta2 = 3200 # [m/s] shear wave of layer 2
 H = 4000 # [m] thickness of layer 1
 
 zmax = H * ((beta1**-2) - (beta2**-2))**0.5 
-#print (zmax) 
+print (zmax) 
 
 f = 0.1 # [Hz] frequency of the wave
 
@@ -60,25 +60,25 @@ frequencies = [0.2, 0.5, 0.8, 1, 2, 3, 5, 7, 9, 10] # [Hz] frequency of the wave
 roots_storage = []
 
 
-for i, f in enumerate(frequencies):
+for i, f in enumerate(frequencies): 
     mode = 0 # Initialize the mode
     roots_for_frequency = [] # List to store roots for the current frequency
     def intersection(z):
         return (ro2/ro1)*np.sqrt((H**2)*((beta1**-2)-(beta2**-2))-z**2)/z - np.tan(2*np.pi*f*z)
     
     plt.figure ()
-    za_mode0 = 0
+    za_mode0 = 0 # Initialize the asymptotic value for mode 0
 
     while mode < 3:
         za_mode = (0.25/f)*(2*mode+1) # Asymptotic value of the mode 0
         if za_mode < zmax:
-            z0 = za_mode - 1e-5
+            z0 = za_mode - 1e-5 # Initial guess for the root
             
             zplt = np.linspace(za_mode0 + 1e-6, za_mode - 1e-6, 100) # Create a range of values around the asymptotic value
             plt.plot(zplt, intersection(zplt), color='b')
             plt.axvline(x=za_mode, color='r', linestyle='--', label = 'Asyntote (s)' if mode == 0 else "_nolabel_") # Plot the asymptotic values
             
-            za_mode0 = za_mode
+            za_mode0 = za_mode # Update the value of the asymptotic value for the next mode
                                     
         else:
             z0 = zmax - 1e-6
@@ -97,10 +97,7 @@ for i, f in enumerate(frequencies):
         
         plt.plot (z0, 0, 'xg', label= 'Initial guess' if mode == 0 else "_nolabel_")
         plt.plot (root, intersection(root),'ro', label= 'Root (s)' if mode == 0 else "_nolabel_") 
-                                 
-        #print(f'Initial guess (z0) for mode {mode} and frequency {f} Hz is {z0}')
-        #print(f'Root for mode {mode} and frequency {f} Hz is {root}')
-        
+          
         if za_mode > zmax:
             break
         
@@ -109,14 +106,13 @@ for i, f in enumerate(frequencies):
     roots_storage.append(roots_for_frequency) # Store the roots for the current frequency5
     plt.ylim (-10, 10)
     #plt.xlim(0, zmax)
-    plt.title('Dispersion Equation for Love Waves')
-    plt.xlabel('\u03B6')
+    plt.title(f'Dispersion Equation for Love Waves at a frequency of {f} Hz')
+    plt.xlabel('\u03B6 [s]')
     plt.ylabel('g(\u03B6)')
     plt.legend()  
     plt.savefig (f'figures/roots_frequencies_{f}.png')
-    
-    
-print(roots_storage)
+        
+#print(roots_storage)
 
 velocities = []
 lambdas = []
@@ -165,7 +161,7 @@ plt.figure()
 plt.plot(frequencies_modes[0], lambda_modes[0], '-', label='Mode 0')
 plt.plot(frequencies_modes[1], lambda_modes[1], '-', label='Mode 1')
 plt.plot(frequencies_modes[2], lambda_modes[2], '-', label='Mode 2')
-plt.xlim (0, 6)
+plt.xlim (0, 10)
 plt.ylim(0, 5000)
 plt.title('Wavelength vs Frequency for Modes 0, 1 and 2')
 plt.xlabel('Frequency [Hz]')

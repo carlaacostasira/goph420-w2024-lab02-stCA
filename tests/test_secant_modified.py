@@ -8,7 +8,7 @@ class TestSecantModified1(unittest.TestCase):
         
     def test_secant_modified(self):
         self.x0 = 1.0
-        self.dx = 1.2
+        self.dx = 0.5
         estimation = root_secant_modified(self.x0,self.dx,self.f)
         actual = 0.5
         self.assertAlmostEqual(estimation[0], actual)
